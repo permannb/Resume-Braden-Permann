@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Car Detailing Quiz</title>
+    <link rel="stylesheet" href="css/quiz-style.css">
+    <style>
+        /* Add modern styles */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #007BFF, #00BFFF);
+            color: #fff;
+            text-align: center;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 20px 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin: 0;
+        }
+
+        header p {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        main {
+            padding: 30px;
+        }
+
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            text-align: left;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .question {
+            margin-bottom: 20px;
+        }
+
+        .question p {
+            font-size: 1.2em;
+            margin-bottom: 10px;
+        }
+
+        label {
+            display: block;
+            font-size: 1em;
+            margin: 5px 0;
+            cursor: pointer;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 1.2em;
+            color: white;
+            background: #28a745;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.5em;
+            font-weight: bold;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 10px;
+            border-radius: 5px;
+            display: inline-block;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 1em;
+        }
+
+        footer a {
+            color: #FFD700;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Car Detailing Quiz</h1>
+        <p>Think you're a detailing master? Put your knowledge to the test!</p>
+    </header>
+    <main>
+        <form id="quiz-form">
+            <div class="question">
+                <p>1. What is the primary purpose of a clay bar?</p>
+                <label><input type="radio" name="q1" value="A"> Remove dirt from carpets</label>
+                <label><input type="radio" name="q1" value="B"> Clean windows</label>
+                <label><input type="radio" name="q1" value="C"> Remove embedded contaminants from paint</label>
+            </div>
+            <div class="question">
+                <p>2. What does polishing a car's surface achieve?</p>
+                <label><input type="radio" name="q2" value="A"> Adds a protective layer</label>
+                <label><input type="radio" name="q2" value="B"> Restores shine and removes imperfections</label>
+                <label><input type="radio" name="q2" value="C"> Removes scratches</label>
+            </div>
+            <div class="question">
+                <p>3. How often should a car be detailed?</p>
+                <label><input type="radio" name="q3" value="A"> Once a month</label>
+                <label><input type="radio" name="q3" value="B"> Every six months</label>
+                <label><input type="radio" name="q3" value="C"> Only when selling it</label>
+            </div>
+            <div class="question">
+                <p>4. What is the best way to prevent water spots?</p>
+                <label><input type="radio" name="q4" value="A"> Let the car air dry</label>
+                <label><input type="radio" name="q4" value="B"> Use a microfiber towel or air blower</label>
+                <label><input type="radio" name="q4" value="C"> Rinse with plain water</label>
+            </div>
+            <div class="question">
+                <p>5. Which product provides the longest-lasting paint protection?</p>
+                <label><input type="radio" name="q5" value="A"> Wax</label>
+                <label><input type="radio" name="q5" value="B"> Sealant</label>
+                <label><input type="radio" name="q5" value="C"> Ceramic coating</label>
+            </div>
+            <div class="question">
+                <p>6. What should be cleaned first during an interior detailing session?</p>
+                <label><input type="radio" name="q6" value="A"> The carpets</label>
+                <label><input type="radio" name="q6" value="B"> The dashboard and upper surfaces</label>
+                <label><input type="radio" name="q6" value="C"> The seats</label>
+            </div>
+            <button type="button" id="submit-button">Submit Answers</button>
+        </form>
+        <p id="result"></p>
+    </main>
+    <footer>
+        <p><strong>Return to the <a href="scratch.html">home page</strong></a>.</p>
+    </footer>
+    <script>
+        document.getElementById("submit-button").addEventListener("click", function () {
+            const answers = {
+                q1: "C",
+                q2: "B",
+                q3: "B",
+                q4: "B",
+                q5: "C",
+                q6: "B"
+            };
+
+            let score = 0;
+            let totalQuestions = Object.keys(answers).length;
+
+            Object.keys(answers).forEach(question => {
+                const userAnswer = document.querySelector(`input[name="${question}"]:checked`);
+                if (userAnswer && userAnswer.value === answers[question]) {
+                    score++;
+                }
+            });
+
+            const resultText = document.getElementById("result");
+            if (score === totalQuestions) {
+                resultText.textContent = `🎉 Perfect score! You got ${score}/${totalQuestions}. You're a detailing master!`;
+            } else if (score > 0) {
+                resultText.textContent = `👍 Not bad! You scored ${score}/${totalQuestions}. Keep learning!`;
+            } else {
+                resultText.textContent = `😔 Oops! You scored ${score}/${totalQuestions}. Time to brush up on your detailing knowledge!`;
+            }
+        });
+    </script>
+</body>
+</html>
